@@ -1,0 +1,23 @@
+{
+  "name": "CMPE281-Final",
+  "version": "0.0.0",
+  "description": "Source code for final exam",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "Heroku",
+    "app",
+    "for",
+    "final"
+  ],
+  "author": "Vishv Brahmbhatt",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~4.13.4",
+    "body-parser": "~1.15.1",
+    "cassandra-driver": "~3.0.2"
+  }
+}
