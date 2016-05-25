@@ -21,10 +21,36 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/heroku', function(req, res) {
+app.post('/heroku/server1', function(req, res) {
   var value = req.body.value;
   var id = req.body.id;
-  client.execute(createHello,[value, id],{ prepare: true }, function(err, getresult){
+  client1.execute(createHello,[value, id],{ prepare: true }, function(err, getresult){
+    if(err) {
+      res.json(err);
+    }
+    else {
+      res.json({"message":"successful"});
+    }
+  });
+});
+
+app.post('/heroku/server2', function(req, res) {
+  var value = req.body.value;
+  var id = req.body.id;
+  client2.execute(createHello,[value, id],{ prepare: true }, function(err, getresult){
+    if(err) {
+      res.json(err);
+    }
+    else {
+      res.json({"message":"successful"});
+    }
+  });
+});
+
+app.post('/heroku/server3', function(req, res) {
+  var value = req.body.value;
+  var id = req.body.id;
+  client3.execute(createHello,[value, id],{ prepare: true }, function(err, getresult){
     if(err) {
       res.json(err);
     }
@@ -41,7 +67,7 @@ app.get('/heroku/server1/:id', function(req, res) {
       res.json(err);
     }
     else {
-      res.json({rows:getresult.rows});
+      res.json({value:getresult.rows[0].value});
     }
   });
 });
@@ -53,7 +79,7 @@ app.get('/heroku/server2/:id', function(req, res) {
       res.json(err);
     }
     else {
-      res.json({rows:getresult.rows});
+      res.json({value:getresult.rows[0].value});
     }
   });
 });
@@ -65,7 +91,7 @@ app.get('/heroku/server3/:id', function(req, res) {
       res.json(err);
     }
     else {
-      res.json({rows:getresult.rows});
+      res.json({value:getresult.rows[0].value});
     }
   });
 });
