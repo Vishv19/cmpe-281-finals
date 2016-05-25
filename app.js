@@ -72,7 +72,7 @@ app.get('/heroku/server3/:id', function(req, res) {
 
 
 app.get('/', function(req, res) {
-    res.json({"Welcome to heroku app"});
+    res.send("Welcome to heroku app");
 });
 
 app.put('/heroku/:id', function(req, res) {
