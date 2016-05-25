@@ -44,6 +44,10 @@ app.get('/heroku/:id', function(req, res) {
   });
 });
 
+app.get('/', function(req, res) {
+    res.json({"Welcome to heroku app"});
+});
+
 app.put('/heroku/:id', function(req, res) {
   var name = req.body.name;
   var value = req.body.value;
