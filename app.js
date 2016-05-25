@@ -5,7 +5,9 @@ var createHello = 'INSERT INTO heroku.hello(value, id) VALUES(?, ?)';
 var getHello = 'SELECT * FROM heroku.hello WHERE id=?';
 var updateHello = 'UPDATE heroku.gumball SET value=? WHERE id=?';
 const cassandra = require('cassandra-driver');
-const client=new cassandra.Client({contactPoints : ['52.9.221.48:9042']});
+const client1=new cassandra.Client({contactPoints : ['52.9.221.48:9042']});
+const client2=new cassandra.Client({contactPoints : ['52.9.236.90:9042']});
+const client3=new cassandra.Client({contactPoints : ['52.9.237.48:9042']});
 /*
 CREATE KEYSPACE "heroku" WITH REPLICATION = { 'class' : 'SimpleStrategy' , 'replication_factor' :3 };
 CREATE TABLE hello(value text, id int, PRIMARY KEY(id));
@@ -32,9 +34,9 @@ app.post('/heroku', function(req, res) {
   });
 });
 
-app.get('/heroku/:id', function(req, res) {
+app.get('/heroku/server1/:id', function(req, res) {
   var id = req.params.id;
-  client.execute(getHello,[id],{ prepare: true }, function(err, getresult) {
+  client1.execute(getHello,[id],{ prepare: true }, function(err, getresult) {
     if(err) {
       res.json(err);
     }
@@ -43,6 +45,31 @@ app.get('/heroku/:id', function(req, res) {
     }
   });
 });
+
+app.get('/heroku/server2/:id', function(req, res) {
+  var id = req.params.id;
+  client2.execute(getHello,[id],{ prepare: true }, function(err, getresult) {
+    if(err) {
+      res.json(err);
+    }
+    else {
+      res.json({rows:getresult.rows});
+    }
+  });
+});
+
+app.get('/heroku/server3/:id', function(req, res) {
+  var id = req.params.id;
+  client3.execute(getHello,[id],{ prepare: true }, function(err, getresult) {
+    if(err) {
+      res.json(err);
+    }
+    else {
+      res.json({rows:getresult.rows});
+    }
+  });
+});
+
 
 app.get('/', function(req, res) {
     res.json({"Welcome to heroku app"});
