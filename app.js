@@ -49,7 +49,6 @@ app.get('/', function(req, res) {
 });
 
 app.put('/heroku/:id', function(req, res) {
-  var name = req.body.name;
   var value = req.body.value;
   var id = req.params.id;
   client.execute(updateHello,[value, id],{ prepare: true }, function(err, getresult) {
